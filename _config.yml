@@ -24,6 +24,9 @@ title:		           "Koukanni's Blog"
 description:	       'An Archive of My Notes...'
 author:              'koukanni'
 
+excerpt_separator: <!--more-->
+
+
 # RSS 2.0 can be used instead of Atom by uncommenting following two lines
 #feed:
 #  path: rss-feed.xml
