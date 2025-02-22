@@ -66,7 +66,7 @@ categories: "tricki"
 從上述討論得到轉移式：
 
 $$S(x, n) = \begin{cases}
-S(x-1, n) + S(x-1, \left\lfloor \frac{n}{x} \right\rfloor) + S(x-1, x-1) & \text{if } x \text{ is prime} \land x^2 \leq n \\
+S(x-1, n) - g(x) \cdot (S(x-1, \left\lfloor \frac{n}{x} \right\rfloor) - S(x-1, x-1)) & \text{if } x \text{ is prime} \land x^2 \leq n \\
 S(x-1, n) & \text{otherwise} \end{cases}$$
 
 
@@ -81,8 +81,8 @@ S(x-1, n) & \text{otherwise} \end{cases}$$
  * V is an array of Q_n sorted in descending order.
  */
 vector<i64> V;
-V = [floor(n / i) for i in range(1,sqrtN + 1)]
-V += list(range(V[-1] - 1, 0, -1))
+// V = [floor(n / i) for i in range(1, sqrtN + 1)]
+// V += list(range(V[-1] - 1, 0, -1))
 
 int idx(const i64 x) {
   return the index of x in array V
@@ -119,7 +119,7 @@ for (const int &p : primes) {
 
     - 要減掉 $F_{prime} (x)$ 是因為我們現在是在計算 $x$ 為最小質因數的數字的函數和，但是 $S(x, n / x^c)$ 卻包含 $F_{prime}(x)$
 
-實作上跟 $\text{Lucy DP}$ 幾乎一樣，只差在一個從小到大跑一遍質數，一個是從大到小。
+實作上跟 $\text{Lucy DP}$ 幾乎一樣，只差在一個是從小到大跑一遍質數，一個是從大到小。
 
 時間複雜度一樣為 $O(\frac{N^{3 / 4}}{log N})$
 
@@ -162,7 +162,7 @@ for (const int &p : primes | views::reverse) {
 ## $\text{Example 2}$
 
 [ABC370G Divisible by 3 ](https://atcoder.jp/contests/abc370/tasks/abc370_g)
-> 求 $\sum\limits_{1 \leq i \leq N \ \land \ \sigma(i) \bmod 3 = 0} \prod\limits\binom{e_i + M - 1}{M - 1}$
+> 求 $\sum\limits_{1 \leq i \leq N \ \land \ \sigma(i) \bmod 3 = 0} \prod\limits\binom{e_j + M - 1}{M - 1}, \text{ where } i = \prod p_j^{e_j}$
 
 令 $f(n) = [\sigma(i) \bmod 3 = 0] \cdot \prod\limits\binom{e_i + M - 1}{M - 1}$
 
