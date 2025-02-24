@@ -40,7 +40,7 @@ categories: "tricki"
 
 ### $\text{Lucy DP}$
 
-定義 $S(x, n) = \sum\limits_{i=2}^{n} [i \in Prime \lor p_k \lt lpf(i)] \cdot f(i)$
+定義 $S(x, n) = \sum\limits_{i=2}^{n} [i \in Prime \lor x \lt lpf(i)] \cdot f(i)$
 > 形式化的理解就是進行埃氏篩時，篩完 $x$ 後還未篩掉的數字的函數值總和。
 
 我們需要先找到一個完全積性函數 $g(n)$，滿足：
@@ -103,7 +103,7 @@ for (const int &p : primes) {
 
 某種程度上，$\text{Min_25 Sieve}$ 可以看成逆向的 $\text{Lucy DP}$
 
-同樣定義 $S(x, n) = \sum\limits_{i=2}^{n} [i \in Prime \lor p_k \lt lpf(i)] \cdot f(i)$
+同樣定義 $S(x, n) = \sum\limits_{i=2}^{n} [i \in Prime \lor x \lt lpf(i)] \cdot f(i)$
 
 - 若 $x \notin Prime \lor x^2 \gt n$：
 
@@ -113,7 +113,7 @@ for (const int &p : primes) {
 
 - 否則，我們可以枚舉 $x$ 的指數 $c$
 
-    - $S(x - 1, n) = S(x, n) + \sum\limits_{1 \leq c \ \land \ x^{c+1} \leq n} f(x^c) \cdot (S(x, n / x^c) - F_{prime}(x)) + f(x^{c + 1})$
+    - $S(x - 1, n) = S(x, n) + \sum\limits_{1 \leq c \ \land \ x^{c+1} \leq n} f(x^c) \cdot (S(x, \lfloor \frac{n}{x^c} \rfloor) - F_{prime}(x)) + f(x^{c + 1})$
 
     - 對於每一個大於等於 $2$ 的 $c$ 要再加上 $f(x^{c + 1})$ 是因為 $f(x)$ 本身已經包含在 $S(x, n)$ 裡面了
 
@@ -136,7 +136,7 @@ auto f_prime(i64 x) {
 
 for (const int &p : primes | views::reverse) {
   const i64 pp = i64(p) * p;
-  rep (i, 0, nv - 1) {
+  for (int i = 0; i < nv; i++) {
     if (pp > V[i]) break;
     i64 pc = p;
     for (int c = 1; pc <= V[i] / p; c++, pc *= p) {
@@ -164,7 +164,7 @@ for (const int &p : primes | views::reverse) {
 [ABC370G Divisible by 3 ](https://atcoder.jp/contests/abc370/tasks/abc370_g)
 > 求 $\sum\limits_{1 \leq i \leq N \ \land \ \sigma(i) \bmod 3 = 0} \prod\limits\binom{e_j + M - 1}{M - 1}, \text{ where } i = \prod p_j^{e_j}$
 
-令 $f(n) = [\sigma(i) \bmod 3 = 0] \cdot \prod\limits\binom{e_i + M - 1}{M - 1}$
+令 $f(n) = [\sigma(n) \bmod 3 = 0] \cdot \prod\limits\binom{e_i + M - 1}{M - 1}$
 
 考慮將 $f$ 拆成兩個函數 $g, \ h$
 
