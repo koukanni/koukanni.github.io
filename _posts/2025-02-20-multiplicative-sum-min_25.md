@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "一類積性函數求和問題 (1)"
+title: "一類積性函數求和問題"
 date: 2025-02-20
 author: koukanni
 categories: "tricki"
