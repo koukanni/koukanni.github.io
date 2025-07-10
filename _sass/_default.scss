@@ -5,7 +5,7 @@
 .container {
   margin-left: auto;
   margin-right: auto;
-  width: 615px;
+  width: 800px;
 }
 
 .content-container {
@@ -17,6 +17,7 @@
 @media (max-width: $container-responsive-width) {
   .container {
     width: 90vw;
+    padding: 0 20px;
   }
 }
 
